@@ -11,8 +11,10 @@ class ArchitecturalDrawing extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'file_path',
-        'project_id'
+        'project_id',
+        'version'
     ];
 
     public function project()

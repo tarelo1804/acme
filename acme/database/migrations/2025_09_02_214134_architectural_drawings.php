@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('architectural_drawings', function (Blueprint $table) {   
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->string('drawing_file');
+            $table->text('description')->nullable();
+            $table->string('file_path');
             $table->foreignId('project_id')->constrained('projects');
-            $table->integer('version');
             $table->timestamps();
         });
     }

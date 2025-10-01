@@ -13,21 +13,34 @@ class Architectural_Drawings_seed extends Seeder
      */
     public function run(): void
     {
+        $now = now();
+
+        // Crear un archivo PDF de ejemplo
+        $samplePdfPath = public_path('drawings/plano_ejemplo.pdf');
+        if (!file_exists($samplePdfPath)) {
+            $pdf = fopen($samplePdfPath, 'w');
+            fwrite($pdf, '%PDF-1.4' . PHP_EOL . '%%EOF');
+            fclose($pdf);
+        }
+        
         DB::table('architectural_drawings')->insert([
-            'name'=>'Plano Estructural 1',
-            'description'=>'Primer plano estructural del proyecto',
-            'drawing_file'=>'plano_estructural_1.pdf',
-            'project_id'=>'1',
-            'version'=>'1',
-            'created_at'=>date('Y-m-d h:m:s')//2025-12-12
+            'name' => 'Plano Estructural 1',
+            'description' => 'Primer plano estructural del proyecto',
+            'file_path' => 'plano_ejemplo.pdf',
+            'project_id' => 1,
+            'version' => 1,
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
+        
         DB::table('architectural_drawings')->insert([
-            'name'=>'Plano Arquitectonico 1',
-            'description'=>'Primer plano arquitectonico del proyecto',
-            'drawing_file'=>'plano_arquitectonico_1.pdf',
-            'project_id'=>'2',
-            'version'=>'3',
-            'created_at'=>date('Y-m-d h:m:s')//2025-12-12
+            'name' => 'Plano Arquitectonico 1',
+            'description' => 'Primer plano arquitectonico del proyecto',
+            'file_path' => 'plano_ejemplo.pdf',
+            'project_id' => 2,
+            'version' => 3,
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
     }
 }
