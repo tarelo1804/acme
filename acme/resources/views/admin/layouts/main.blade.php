@@ -97,10 +97,18 @@
                 <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="logoutAndRedirect()">Cerrar sesión</a>
+                    <form id="logout-form" method="POST" action="{{ url('/logout') }}" style="display: none;">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Cerrar sesión</button>
                     </form>
+                    <script>
+                        function logoutAndRedirect() {
+                            document.getElementById('logout-form').submit();
+                            setTimeout(function() {
+                                window.location.href = '/';
+                            }, 100);
+                        }
+                    </script>
                 </div>
             </div>
         </div>

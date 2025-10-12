@@ -10,10 +10,10 @@ Route::get('/', function () {
 // Redirección desde /dashboard a /admin/dashboard
 Route::get('/dashboard', function () {
     return redirect('/admin/dashboard');
-});
+})->middleware('auth');
 
 // Rutas de administración
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // Dashboard
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
@@ -45,8 +45,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('zones', [App\Http\Controllers\Admin\ZoneController::class, 'index'])->name('zones.index');
 });
 
-// Ruta de logout
-Route::post('/logout', function() {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+// Rutas de autenticación
+Auth::routes();
+
+// Ruta de logout explícita
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
